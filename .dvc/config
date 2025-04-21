@@ -1,2 +1,4 @@
+[core]
+    remote = origin
 ['remote "origin"']
     url = https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.dvc
