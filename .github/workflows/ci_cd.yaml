@@ -20,13 +20,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Set up MLflow with DagsHub
-        run: |
-         echo "Using DagsHub MLflow tracking..."
-         export MLFLOW_TRACKING_URI="https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.mlflow"
-         export MLFLOW_TRACKING_USERNAME="gulamkibria775"
-         export MLFLOW_TRACKING_PASSWORD="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
+      # - name: Set up MLflow with DagsHub
+      #   run: |
+      #    echo "Using DagsHub MLflow tracking..."
+      #    export MLFLOW_TRACKING_URI="https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.mlflow"
+      #    export MLFLOW_TRACKING_USERNAME="gulamkibria775"
+      #    export MLFLOW_TRACKING_PASSWORD="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
 
+      - name: Install DVC
+        run: pip install "dvc[http]"  # Or use dvc[gs] / dvc[http] depending on your remote
+
+      - name: Set up DVC remote manually
+        run: |
+         dvc remote modify origin url https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.dvc
+         dvc remote modify origin --local auth basic
+         dvc remote modify origin --local user gulamkibria775
+         dvc remote modify origin --local password bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2
+
+      - name: Pull data with DVC
+        run: dvc pull
 
       - name: DVC Pull
         run: |
