@@ -48,9 +48,11 @@ jobs:
 
       - name: Test Model Performance
         run: |
+          export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           pytest tests/test_model_perf.py
 
       - name: Promote Model
         if: success()
         run: |
+          export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           python scripts/promote_model_to_prod.py
