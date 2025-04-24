@@ -6,17 +6,17 @@ import json
 
 
 # initialize dagshub
-import dagshub
-dagshub.init(repo_owner='gulamkibria775', repo_name='Swiggy-Delivery-Time-Prediction', mlflow=True)
+# import dagshub
+# dagshub.init(repo_owner='gulamkibria775', repo_name='Swiggy-Delivery-Time-Prediction', mlflow=True)
 
 # import dagshub
 
-# dagshub.init(
-#     repo_owner='gulamkibria775',
-#     repo_name='Swiggy-Delivery-Time-Prediction',
-#     mlflow=True,
-#     # token="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
-# )
+dagshub.init(
+    repo_owner='gulamkibria775',
+    repo_name='Swiggy-Delivery-Time-Prediction',
+    mlflow=True,
+    # token="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
+)
 
 
 # set the mlflow tracking server
