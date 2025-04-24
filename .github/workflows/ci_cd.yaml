@@ -33,8 +33,9 @@ jobs:
       - name: Install Testing Tools (pytest)
         run: pip install pytest
 
-      - name: Upgrade dagshub to latest version
-        run: pip install --upgrade dagshub
+      - name: Install dagshub with token support
+        run: pip install dagshub>=0.3.12
+
 
 
 
