@@ -13,26 +13,44 @@ from sklearn.metrics import mean_absolute_error
 import os
 import dagshub
 
-# Automatically authenticate using DAGSHUB_TOKEN environment variable
-dagshub_token = os.getenv("DAGSHUB_TOKEN")
-if dagshub_token:
-    os.environ["MLFLOW_TRACKING_USERNAME"] = "gulamkibria775"  # your DagsHub username
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = "bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
-
-# Initialize dagshub tracking
-dagshub.init(
-    repo_owner="gulamkibria775",
-    repo_name="Swiggy-Delivery-Time-Prediction",
-    mlflow=True
-)
 
 
-# initialize dagshub
-import dagshub
-dagshub.init(repo_owner='gulamkibria775', repo_name='Swiggy-Delivery-Time-Prediction', mlflow=True)
 
-# set the mlflow tracking server
-mlflow.set_tracking_uri("https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.mlflow")
+
+# Get secrets from environment variables
+dagshub_token = "bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
+dagshub_user = "gulamkibria775"
+repo_name = "Swiggy-Delivery-Time-Prediction"
+
+# Set up MLflow Tracking URI with token authentication
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_user
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+os.environ["MLFLOW_TRACKING_URI"] = f"https://dagshub.com/{dagshub_user}/{repo_name}.mlflow"
+
+# Initialize DagsHub tracking (optional if you use MLflow only)
+dagshub.init(repo_owner=dagshub_user, repo_name=repo_name, mlflow=True)
+
+
+# # Automatically authenticate using DAGSHUB_TOKEN environment variable
+# dagshub_token = os.getenv("DAGSHUB_TOKEN")
+# if dagshub_token:
+#     os.environ["MLFLOW_TRACKING_USERNAME"] = "gulamkibria775"  # your DagsHub username
+#     os.environ["MLFLOW_TRACKING_PASSWORD"] = "bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
+
+# # Initialize dagshub tracking
+# dagshub.init(
+#     repo_owner="gulamkibria775",
+#     repo_name="Swiggy-Delivery-Time-Prediction",
+#     mlflow=True
+# )
+
+
+# # initialize dagshub
+# import dagshub
+# dagshub.init(repo_owner='gulamkibria775', repo_name='Swiggy-Delivery-Time-Prediction', mlflow=True)
+
+# # set the mlflow tracking server
+# mlflow.set_tracking_uri("https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.mlflow")
 
 
 
