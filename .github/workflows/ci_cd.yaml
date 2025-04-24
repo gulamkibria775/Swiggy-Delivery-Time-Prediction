@@ -33,6 +33,10 @@ jobs:
       - name: Install Testing Tools (pytest)
         run: pip install pytest
 
+      - name: Upgrade dagshub to latest version
+        run: pip install --upgrade dagshub
+
+
 
       - name: Test Model Registry
         run: |
