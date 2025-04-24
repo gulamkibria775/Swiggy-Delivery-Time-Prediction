@@ -8,6 +8,25 @@ import joblib
 import pandas as pd
 from sklearn.metrics import mean_absolute_error
 
+
+
+import os
+import dagshub
+
+# Automatically authenticate using DAGSHUB_TOKEN environment variable
+dagshub_token = os.getenv("DAGSHUB_TOKEN")
+if dagshub_token:
+    os.environ["MLFLOW_TRACKING_USERNAME"] = "gulamkibria775"  # your DagsHub username
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = "bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
+
+# Initialize dagshub tracking
+dagshub.init(
+    repo_owner="gulamkibria775",
+    repo_name="Swiggy-Delivery-Time-Prediction",
+    mlflow=True
+)
+
+
 # initialize dagshub
 import dagshub
 dagshub.init(repo_owner='gulamkibria775', repo_name='Swiggy-Delivery-Time-Prediction', mlflow=True)
