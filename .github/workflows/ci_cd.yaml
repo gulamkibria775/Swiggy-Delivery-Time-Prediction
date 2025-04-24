@@ -41,7 +41,7 @@ jobs:
 
 
 
-      - name: Test Model Registry
+      - name: Test Model Registry run
         run: |
           export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           pytest tests/test_model_registry.py
