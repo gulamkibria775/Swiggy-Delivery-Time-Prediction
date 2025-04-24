@@ -30,6 +30,9 @@ jobs:
       # - name: DVC Pull (if needed)
       #   run: |
       #     dvc pull
+      - name: Install Testing Tools (pytest)
+        run: pip install pytest
+
 
       - name: Test Model Registry
         run: |
