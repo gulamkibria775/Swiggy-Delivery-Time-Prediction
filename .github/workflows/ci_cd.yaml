@@ -1,10 +1,11 @@
-name: CI-CD
+# name: CI-CD
 
 on: push
 
 jobs:
   CI-CD:
     runs-on: ubuntu-latest
+
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -13,52 +14,32 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip' 
+          cache: 'pip'
 
       - name: Install Packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      # - name: Set up MLflow with DagsHub
-      #   run: |
-      #    echo "Using DagsHub MLflow tracking..."
-      #    export MLFLOW_TRACKING_URI="https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.mlflow"
-      #    export MLFLOW_TRACKING_USERNAME="gulamkibria775"
-      #    export MLFLOW_TRACKING_PASSWORD="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
-
       - name: Install DVC
-        run: pip install "dvc[http]"  # Or use dvc[gs] / dvc[http] depending on your remote
+        run: pip install "dvc"
 
-      - name: Set up DVC remote manually
-        run: |
-         dvc remote modify origin url https://dagshub.com/gulamkibria775/Swiggy-Delivery-Time-Prediction.dvc
-         dvc remote modify origin --local auth basic
-         dvc remote modify origin --local user gulamkibria775
-         dvc remote modify origin --local password bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2
+      # OPTIONAL: If your `.dvc` files or `dvc.lock` track local data, but the data is already committed to Git
+      # and small in size, you can skip dvc pull. Otherwise, you may simulate local data setup.
 
-      - name: Pull data with DVC
-        run: dvc pull
-
-      - name: DVC Pull
-        run: |
-          dvc pull
+      # - name: DVC Pull (if needed)
+      #   run: |
+      #     dvc pull
 
       - name: Test Model Registry
-
         run: |
-          export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           pytest tests/test_model_registry.py
 
       - name: Test Model Performance
-
         run: |
-          export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           pytest tests/test_model_perf.py
 
       - name: Promote Model
         if: success()
-        
         run: |
-          export DAGSHUB_USER_TOKEN="bc97bd38dfc84d2637b9a9ead8374a6d30bd0be2"
           python scripts/promote_model_to_prod.py
